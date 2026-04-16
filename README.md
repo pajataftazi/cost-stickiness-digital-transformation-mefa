@@ -89,9 +89,83 @@ MEFA_it = β₀ + β₁DT_it + β₂CS_it + β₃(DT × CS)_it + β₄SIZE_it + 
 | 2023 | 4.5951   | −0.4910         | 14,100               | 2.84%    |
 | 2024 | 4.7536   | −0.3697         | 14,800               | 2.70%    |
 ---
+
 ## 🛠️ How to Run the Code
 ### Prerequisites
 ```bash
 # Install required packages
 pip install -r requirements.txt
+# Step 1: Collect and clean raw data
+python code/01_data_collection.py
+
+# Step 2: Calculate MEFA
+python code/02_mefa_calculation.py
+
+# Step 3: Calculate Cost Stickiness
+python code/03_cost_stickiness.py
+
+# Step 4: Calculate Digital Transformation Index
+python code/04_digital_transformation.py
+
+# Step 5: Run panel regression (export to EViews)
+python code/05_panel_regression.py
+
+# Step 6: Generate charts
+python code/06_visualization.py
+
+pandas==2.0.0
+numpy==1.24.0
+scipy==1.10.0
+matplotlib==3.7.0
+seaborn==0.12.0
+openpyxl==3.1.0
+statsmodels==0.14.0
+
+No.,Author,Year,Title,Journal
+
+1,Zeng & Wang,2025,The Impact of Corporate Digital Transformation on the Accuracy of Management's Earnings Forecasts,International Review of Economics and Finance
+2,Li & Sun,2023,"Cost Stickiness, Earnings Forecast Accuracy, and the Informativeness of Stock Prices",Humanities and Social Sciences Communications
+3,"Anderson, Banker & Janakiraman",2003,"Are SG&A Costs ""Sticky""?",Journal of Accounting Research
+4,Weiss,2010,Cost Behavior and Analysts' Earnings Forecasts,The Accounting Review
+5,"He, Li & Lin",2025,Does Digitalization Imply Uncertainty About the Future Prospects of a Firm?,Financial Review
+
+---
+
+## 4. data/raw/README.md — Copy This
+
+```markdown
+# Raw Data Sources
+
+The raw annual report PDFs are NOT stored in this repository 
+due to file size and copyright restrictions.
+
+## How to Download the Data
+
+### For each bank, download the annual reports for 2019–2024:
+
+| Bank | Stock Code | Investor Relations URL |
+|------|------------|----------------------|
+| BCA  | BBCA | https://www.bca.co.id/id/Tentang-BCA/Hubungan-Investor |
+| BRI  | BBRI | https://ir.bri.co.id/ |
+| BNI  | BBNI | https://ir.bni.co.id/ |
+| Mandiri | BMRI | https://ir.bankmandiri.co.id/ |
+| *(others)* | — | https://www.idx.co.id/ |
+
+## Data Points to Collect from Each Annual Report
+
+### For MEFA:
+- Management's Forecast Net Profit (from MD&A section)
+- Actual Net Profit After Tax (from Income Statement)
+
+### For Cost Stickiness:
+- Total Operating Revenue (Income Statement)
+- Net Profit Before Extraordinary Items (Income Statement)
+
+### For Digital Transformation:
+- Count of digital-related keywords in the MD&A section
+  (AI, big data, cloud, blockchain, digital banking, fintech, etc.)
+
+## File Naming Convention
+Save files as: `{BANK_CODE}_{YEAR}_annual_report.pdf`
+Example: `BBCA_2021_annual_report.pdf`
 
